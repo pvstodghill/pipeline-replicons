@@ -1,0 +1,9 @@
+[submodule "howto"]
+	path = howto
+	url = ../howto.git
+[submodule "stubs"]
+	path = stubs
+	url = ../stubs.git
+[submodule "scripts"]
+	path = scripts
+	url = ../scripts.git
