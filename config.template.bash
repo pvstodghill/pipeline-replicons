@@ -4,7 +4,8 @@
 
 # ------------------------------------------------------------------------
 
-# FIXME
+# COLLECTION_DIR=/.../collection # collection/ to process
+# COLLECTION_EXCLUDE="NAME1 NAME2" # genomes from collection/ to exclude
 
 # ------------------------------------------------------------------------
 
