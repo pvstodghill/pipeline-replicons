@@ -32,27 +32,33 @@ for FAA in ${INPUTS}/*.faa ; do
     ${PIPELINE}/scripts/split-faa -d ${SPLIT} ${INPUTS}/${NAME}.faa ${INPUTS}/${NAME}.gff
 done
 
-echo 1>&2 '# Renaming for readability...'
+# --------------------------------------------------
 
-PUNCT='~'
+if [ ${RENAME_REPLICONS} ] ; then
 
-grep '>' ${INPUTS}/*.fna \
-    | sed -E \
-	  -e 's|'${INPUTS}'/||' \
-	  -e 's/(.*).fna:>gnl\|Prokka\|(.*)_([0-9]+)$/\1\t\2\t\3/' \
-    | tr '\t' '\a' \
-    | (
-    while IFS=$'\a' read COLLECTION_NAME PROKKA_NAME I ; do
-	mv ${SPLIT}/${PROKKA_NAME}_${I}.fna ${SPLIT}/${COLLECTION_NAME}${PUNCT}${I}.fna
-	if [ -e ${SPLIT}/${PROKKA_NAME}_${I}.gff ] ; then
-	    mv ${SPLIT}/${PROKKA_NAME}_${I}.gff ${SPLIT}/${COLLECTION_NAME}${PUNCT}${I}.gff
-	fi
-	if [ -e ${SPLIT}/${PROKKA_NAME}_${I}.faa ] ; then
-	    mv ${SPLIT}/${PROKKA_NAME}_${I}.faa ${SPLIT}/${COLLECTION_NAME}${PUNCT}${I}.faa
-	fi
-    done
+    echo 1>&2 '# Renaming for readability...'
 
-)
+    PUNCT='~'
+
+    grep '>' ${INPUTS}/*.fna \
+	| sed -E \
+	      -e 's|'${INPUTS}'/||' \
+	      -e 's/(.*).fna:>gnl\|Prokka\|(.*)_([0-9]+)$/\1\t\2\t\3/' \
+	| tr '\t' '\a' \
+	| (
+	while IFS=$'\a' read COLLECTION_NAME PROKKA_NAME I ; do
+	    mv ${SPLIT}/${PROKKA_NAME}_${I}.fna ${SPLIT}/${COLLECTION_NAME}${PUNCT}${I}.fna
+	    if [ -e ${SPLIT}/${PROKKA_NAME}_${I}.gff ] ; then
+		mv ${SPLIT}/${PROKKA_NAME}_${I}.gff ${SPLIT}/${COLLECTION_NAME}${PUNCT}${I}.gff
+	    fi
+	    if [ -e ${SPLIT}/${PROKKA_NAME}_${I}.faa ] ; then
+		mv ${SPLIT}/${PROKKA_NAME}_${I}.faa ${SPLIT}/${COLLECTION_NAME}${PUNCT}${I}.faa
+	    fi
+	done
+
+    )
+
+fi
 
 # ------------------------------------------------------------------------
 # Done.
