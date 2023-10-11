@@ -22,14 +22,14 @@ echo 1>&2 '# Splitting .gff files...'
 
 for GFF in ${INPUTS}/*.gff ; do
     NAME=$(basename $GFF .gff)
-    cat ${INPUTS}/${NAME}.gff | ${PIPELINE}/scripts/split-gff -d ${SPLIT}
+    cat ${INPUTS}/${NAME}.gff | ${PIPELINE}/scripts/split-gff -n -d ${SPLIT}
 done
 
 echo 1>&2 '# Splitting .faa files...'
 
 for FAA in ${INPUTS}/*.faa ; do
     NAME=$(basename $FAA .faa)
-    ${PIPELINE}/scripts/split-faa -d ${SPLIT} ${INPUTS}/${NAME}.faa ${INPUTS}/${NAME}.gff
+    ${PIPELINE}/scripts/split-faa -n -d ${SPLIT} ${INPUTS}/${NAME}.faa ${INPUTS}/${NAME}.gff
 done
 
 # --------------------------------------------------
