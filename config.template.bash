@@ -4,7 +4,7 @@
 
 # ------------------------------------------------------------------------
 
-# COLLECTION_DIR=/.../collection # collection/ to process
+COLLECTION_DIR="../*collection" # collection/ to process
 # COLLECTION_EXCLUDE="NAME1 NAME2" # genomes from collection/ to exclude
 
 # RENAME_REPLICONS=1 # FIXME_1, FIXME_2 -> STRAIN~1, STRAIN~2
