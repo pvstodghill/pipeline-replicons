@@ -1,21 +1,5 @@
 #! /bin/bash
 
-# In order to help test portability, I eliminate all of my
-# personalizations from the PATH, etc.
-if [ "$PVSE" ] ; then
-    HOWTO_CONDA_CMD="${HOWTO_CONDA_CMD:-$(type -p mamba)}"
-    HOWTO_CONDA_CMD="${HOWTO_CONDA_CMD:-$(type -p conda)}"
-    if [ "$HOWTO_CONDA_CMD" ] ; then
-	export HOWTO_CONDA_CMD
-    fi
-    export PATH=/usr/local/bin:/usr/bin:/bin
-    export PERL5LIB=
-    export PERL_LOCAL_LIB_ROOT=
-    export PERL_MB_OPT=
-    export PERL_MM_OPT=
-    export PYTHONPATH=
-fi
-
 # ------------------------------------------------------------------------
 
 # yuck. ugly.
@@ -42,6 +26,24 @@ DATA=${DATA:-data}
 # ------------------------------------------------------------------------
 
 . config.bash
+
+# ------------------------------------------------------------------------
+
+# In order to help test portability, I eliminate all of my
+# personalizations from the PATH, etc.
+if [ "$PVSE" -a "$PACKAGES_FROM" != native ] ; then
+    HOWTO_CONDA_CMD="${HOWTO_CONDA_CMD:-$(type -p mamba)}"
+    HOWTO_CONDA_CMD="${HOWTO_CONDA_CMD:-$(type -p conda)}"
+    if [ "$HOWTO_CONDA_CMD" ] ; then
+	export HOWTO_CONDA_CMD
+    fi
+    export PATH=/usr/local/bin:/usr/bin:/bin
+    export PERL5LIB=
+    export PERL_LOCAL_LIB_ROOT=
+    export PERL_MB_OPT=
+    export PERL_MM_OPT=
+    export PYTHONPATH=
+fi
 
 # ------------------------------------------------------------------------
 
